@@ -1,71 +1,67 @@
-*{
-    margin:0px;
-    padding:0px;
-    box-sizing:border-box;
-    overflow:hidden;
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: crimson;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.btn {
+  display: none;
+}
 
-}
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background:crimson;
-    display: flex;
-    flex-direction:column;
-    width:100%;
-}
-.btn{
-    display:none;
+canvas {
+  background: rgb(50, 47, 47);
+  width: 97vmin;
+  height: 80vmin;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 0.4rem;
 }
 
-canvas{
-    background:rgb(50, 47, 47);
-    width:97vmin;
-    height:80vmin;
-    border-radius:5px;
+@media screen and (max-width: 500px) {
+  * {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .btn {
     display: inline-block;
-    margin:0.4rem;
-
+    width: 50px;
+    margin: 10px;
+    margin-right: 0px;
+    font-size: 20px;
+    font-weight: 900;
+    background: rgb(255, 238, 207);
+    border-radius: 5px;
+    color: crimson;
+    padding: 5px;
+    border: 0px;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  }
+  #btnup {
+    margin-top: 30px;
+    margin-left: 0px;
+  }
+  #btndn,
+  #btnup {
+    margin-left: 0px;
+    position: relative;
+    left: 10px;
+  }
+  #btnr {
+    position: relative;
+    top: -105px;
+    left: 82%;
+  }
+  #btnl {
+    position: relative;
+    top: -100px;
+    left: 82%;
+  }
 }
-
-@media screen and (max-width:500px){
-    *{
-        margin:0px;
-        padding:0px;
-    }
-
-    .btn{
-        display:inline-block;
-        width:50px;
-        margin:10px;
-        margin-right:0px;
-        font-size:20px;
-        font-weight:900;
-        background:rgb(255, 238, 207);
-        border-radius:5px;
-        color:crimson;
-        padding:5px;
-        border:0px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    }
-    #btnup{
-        margin-top:30px; 
-        margin-left:0px;
-    }
-    #btndn,#btnup{
-        margin-left:0px;
-        position: relative;
-        left:10px;
-    }
-    #btnr{
-        position: relative;
-        top:-105px ;
-        left:82%;
-    }
-    #btnl{
-        position: relative;
-        top:-100px;
-        left:82%; 
-    }
-}
-
-
-
