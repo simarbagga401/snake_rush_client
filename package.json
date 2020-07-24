@@ -1,0 +1,24 @@
+{
+  "name": "snakegame",
+  "version": "1.0.0",
+  "description": "I am adding multiplayer to my snake game",
+  "main": "snakegame.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simarbagga401/snakeGame.git"
+  },
+  "author": "SIMAR BAGGA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simarbagga401/snakeGame/issues"
+  },
+  "homepage": "https://github.com/simarbagga401/snakeGame#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  }
+}
