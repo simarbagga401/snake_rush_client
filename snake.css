@@ -6,15 +6,30 @@
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: crimson;
+  background: linear-gradient(90deg, #ece9e6, #ffffff);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
 }
 .btn {
   display: none;
 }
-
+.chat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+  height: 600px;
+  background: rgb(255, 149, 207);
+  box-shadow: -23px 23px 0px 0px rgba(0, 0, 0, 0.75);
+}
+.send_btn {
+  padding: 10px;
+  outline: none;
+  border: none;
+  background-color: #ff5858;
+  color: black;
+}
 canvas {
   background: rgb(50, 47, 47);
   width: 97vmin;
@@ -22,25 +37,53 @@ canvas {
   border-radius: 5px;
   display: inline-block;
   margin: 0.4rem;
+  position: relative;
 }
-
+#popup {
+  width: 97vmin;
+  height: 80vmin;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 0.4rem;
+  position: absolute;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: "redressed";
+  z-index: 10;
+  font-size: 35px;
+}
+.gif {
+  z-index: 30;
+  width: 40vw;
+  max-width: 420px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: none;
+}
 @media screen and (max-width: 500px) {
   * {
     margin: 0px;
     padding: 0px;
   }
-
+  body {
+    flex-direction: column;
+  }
   .btn {
     display: inline-block;
-    width: 50px;
+    box-sizing: border-box;
+    width: 60px;
     margin: 10px;
     margin-right: 0px;
     font-size: 20px;
     font-weight: 900;
-    background: rgb(255, 238, 207);
+    background: crimson;
     border-radius: 5px;
-    color: crimson;
-    padding: 5px;
+    color: black;
+    padding: 15px;
     border: 0px;
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   }
@@ -52,16 +95,16 @@ canvas {
   #btnup {
     margin-left: 0px;
     position: relative;
-    left: 10px;
+    left: 20px;
   }
   #btnr {
     position: relative;
-    top: -105px;
-    left: 82%;
+    top: -140px;
+    left: 80%;
   }
   #btnl {
     position: relative;
-    top: -100px;
-    left: 82%;
+    top: -140px;
+    left: 80%;
   }
 }

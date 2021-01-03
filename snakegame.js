@@ -16,34 +16,34 @@ const move = new Audio();
 eat.src = "sounds/soundEffect/food.ogg";
 dead.src = "sounds/soundEffect/dead.ogg";
 move.src = "sounds/soundEffect/open.ogg";
-// consoles
+// consoless
 console.log(randomfoodx);
 console.log(`y ${randomfoody}`);
 // GAME SOUNDS
 function food() {
   ctx.fillStyle = "crimson";
   ctx.fillRect(randomfoodx, randomfoody, 10, 10);
-
+  
   ctx.strokeStyle = "black";
   ctx.strokeRect(randomfoodx, randomfoody, 10, 10);
 }
-const snakehead = [{ x: 0, y: 0 }];
+let snakehead = [{ x: 0, y: 0 }];
 var SNAKEx = (snakehead[0].x = 200);
 var SNAKEy = (snakehead[0].y = 200);
 // var snake = {
-//     dx = 0;
-// }
-function drawsnake() {
+  //     dx = 0;
+  // }
+  function drawsnake() {
   for (let i = 0; i < snakehead.length; i++) {
     ctx.fillStyle = "lightgreen ";
     ctx.fillRect(snakehead[i].x, snakehead[i].y, 10, 10);
-
+    
     ctx.strokeStyle = "black ";
     ctx.strokeRect(snakehead[i].x, snakehead[i].y, 10, 10);
   }
   ctx.fillStyle = "green";
   ctx.fillRect(SNAKEx, SNAKEy, 10, 10);
-
+  
   ctx.strokeStyle = "black";
   ctx.strokeRect(SNAKEx, SNAKEy, 10, 10);
 }
@@ -64,8 +64,8 @@ function enemydetect() {
     (randomenemyB == SNAKEx && randomenemyB == SNAKEy) ||
     (randomenemyX == SNAKEx && randomenemyX == SNAKEy) ||
     (randomenemyY == SNAKEx && randomenemyY == SNAKEy)
-  ) {
-    dead.play();
+    ) {
+      dead.play();
     console.log("hit");
     gameover();
   }
@@ -73,46 +73,46 @@ function enemydetect() {
 function drawenemy(a, b, x, y) {
   ctx.fillStyle = "rgb(100,200,100)";
   ctx.fillRect(a, a, 10, 10);
-
+  
   ctx.fillStyle = "rgb(200,200,100)";
   ctx.fillRect(b, b, 10, 10);
-
+  
   ctx.fillStyle = "rgb(100,200,200)";
   ctx.fillRect(x, x, 10, 10);
-
+  
   ctx.fillStyle = "rgb(10,200,10)";
   ctx.fillRect(y, y, 10, 10);
-
+  
   ctx.fillStyle = "rgb(120,10,100)";
   ctx.fillRect(a, b, 10, 10);
-
+  
   ctx.fillStyle = "rgb(100,100,115)";
   ctx.fillRect(b, a, 10, 10);
-
+  
   ctx.fillStyle = "rgb(100,120,100)";
   ctx.fillRect(x, y, 10, 10);
-
+  
   ctx.fillStyle = "rgb(100,110,100)";
   ctx.fillRect(y, x, 10, 10);
-
+  
   ctx.fillStyle = "rgb(110,100,100)";
   ctx.fillRect(x, a, 10, 10);
-
+  
   ctx.fillStyle = "rgb(100,120,100)";
   ctx.fillRect(x, b, 10, 10);
-
+  
   ctx.fillStyle = "rgb(100,130,100)";
   ctx.fillRect(y, a, 10, 10);
-
+  
   ctx.fillStyle = "rgb(170,100,100)";
   ctx.fillRect(y, b, 10, 10);
-
+  
   ctx.fillStyle = "rgb(100,120,100)";
   ctx.fillRect(b, y, 10, 10);
-
+  
   ctx.fillStyle = "rgb(130,120,100)";
   ctx.fillRect(a, y, 10, 10);
-
+  
   ctx.fillStyle = "rgb(190,100,190)";
   ctx.fillRect(a, x, 10, 10);
 }
@@ -127,7 +127,7 @@ function newtail() {
     randomenemyY = Math.ceil(Math.random() * 28) * 10;
     randomenemyA = Math.ceil(Math.random() * 28) * 10;
     randomenemyB = Math.ceil(Math.random() * 28) * 10;
-
+    
     if (score > 100) {
       counter = 400;
     }
@@ -137,26 +137,26 @@ function newtail() {
       score == 990 ||
       score == 190 ||
       score == 1490
-    ) {
-      move.play();
+      ) {
+        move.play();
+      } else {
+        eat.play();
+      }
+      if (score > 200) {
+        counter = 350;
+      }
+      if (score > 500) {
+        counter = 250;
+      }
+      if (score < 100) {
+        counter = 500;
+      }
+      console.log("success");
+      score += 10;
+      // GROWING PART OF SNAKE
+      grow();
     } else {
-      eat.play();
-    }
-    if (score > 200) {
-      counter = 350;
-    }
-    if (score > 500) {
-      counter = 250;
-    }
-    if (score < 100) {
-      counter = 500;
-    }
-    console.log("success");
-    score += 10;
-    // GROWING PART OF SNAKE
-    grow();
-  } else {
-    newhead = {
+      newhead = {
       x: SNAKEx,
       y: SNAKEy,
     };
@@ -183,11 +183,29 @@ function hitdetect() {
 }
 
 function gameover() {
-  over = alert("GAME OVER! SCORE : " + score);
-  if (over) {
-    window.location.reload(true);
-  } else {
-    window.location.reload(true);
+  let popup = document.querySelector("#popup");
+  let gif = document.querySelector(".gif");
+  popup.style.display = "flex";
+  gif.style.display = "inline";
+  popup.innerText = `GAME OVER! Press R OR Double Click To Restart`;
+  document.addEventListener("keydown",e =>{
+    if(e.key === "r" || e.key === "R"){
+      restart()
+    }
+  });
+  document.addEventListener("dblclick",() => restart());
+  function restart(){
+      gif.style.display = "none";
+      popup.style.display = "none";
+      counter = 500;
+      score = 0;
+      snakehead = [{ x: 0, y: 0 }];
+      randomfoodx = Math.ceil(Math.random() * 25) * 10;
+      randomfoody = Math.ceil(Math.random() * 25) * 10;
+      randomenemyX = Math.ceil(Math.random() * 28) * 10;
+      randomenemyY = Math.ceil(Math.random() * 28) * 10;
+      randomenemyA = Math.ceil(Math.random() * 28) * 10;
+      randomenemyB = Math.ceil(Math.random() * 28) * 10;
   }
 }
 
@@ -224,8 +242,6 @@ function buttonl() {
 //update start
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
   food();
   enemydetect();
   drawenemy(randomenemyA, randomenemyB, randomenemyX, randomenemyY);
