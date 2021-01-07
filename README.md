@@ -1,2 +1,2 @@
 #Snake Rush
-Multiplayer Fun Snake Game With Obstracles And Time Pressure
+Multiplayer Fun Snake Game With Obstacles And Time Pressure
