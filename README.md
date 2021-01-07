@@ -1,2 +1,2 @@
-#snakeGame
-This is a snake game with a unique idea.Soon multiplayer mode will be available
+#Snake Rush
+Multiplayer Fun Snake Game With Obstracles And Time Pressure

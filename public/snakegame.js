@@ -7,16 +7,15 @@ var randomenemyX = Math.ceil(Math.random() * 28) * 10;
 var randomenemyY = Math.ceil(Math.random() * 28) * 10;
 var randomenemyA = Math.ceil(Math.random() * 28) * 10;
 var randomenemyB = Math.ceil(Math.random() * 28) * 10;
-var apple = document.getElementById("apple");
 var score = 0;
 var counter = 500;
 const eat = new Audio();
 const dead = new Audio();
 const move = new Audio();
-eat.src = "sounds/soundEffect/food.ogg";
-dead.src = "sounds/soundEffect/dead.ogg";
-move.src = "sounds/soundEffect/open.ogg";
-// consoless
+eat.src = "./sounds/soundEffect/food.ogg";
+dead.src = "./sounds/soundEffect/dead.ogg";
+move.src = "./sounds/soundEffect/open.ogg";
+// consoles
 console.log(randomfoodx);
 console.log(`y ${randomfoody}`);
 // GAME SOUNDS
@@ -194,21 +193,20 @@ function gameover() {
     }
   });
   document.addEventListener("dblclick",() => restart());
-  function restart(){
-      gif.style.display = "none";
-      popup.style.display = "none";
-      counter = 500;
-      score = 0;
-      snakehead = [{ x: 0, y: 0 }];
-      randomfoodx = Math.ceil(Math.random() * 25) * 10;
-      randomfoody = Math.ceil(Math.random() * 25) * 10;
-      randomenemyX = Math.ceil(Math.random() * 28) * 10;
-      randomenemyY = Math.ceil(Math.random() * 28) * 10;
-      randomenemyA = Math.ceil(Math.random() * 28) * 10;
-      randomenemyB = Math.ceil(Math.random() * 28) * 10;
-  }
 }
-
+function restart(){
+  gif.style.display = "none";
+  popup.style.display = "none";
+  counter = 500;
+  score = 0;
+  snakehead = [{ x: 0, y: 0 }];
+  randomfoodx = Math.ceil(Math.random() * 25) * 10;
+  randomfoody = Math.ceil(Math.random() * 25) * 10;
+  randomenemyX = Math.ceil(Math.random() * 28) * 10;
+  randomenemyY = Math.ceil(Math.random() * 28) * 10;
+  randomenemyA = Math.ceil(Math.random() * 28) * 10;
+  randomenemyB = Math.ceil(Math.random() * 28) * 10;
+}
 // keys
 document.addEventListener("keydown", keydown);
 function keydown(e) {
@@ -223,6 +221,9 @@ function keydown(e) {
   }
   if (e.key == "d") {
     SNAKEx += 10;
+  }
+  if (e.key == 'd' || e.key == 'w' || e.key == "a" || e.key == "s") {
+    send_snake_pos([SNAKEx,SNAKEy]);
   }
 }
 // button
