@@ -9,44 +9,42 @@
       href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
       rel="stylesheet"
     />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Redressed&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" type="image/svg" href="./imgs/logo.png" />
   </head>
   <body>
-    <img src="./imgs/gif1.gif" class="gif" />
+    <img src="./imgs/gif1-min.gif" class="gif" />
     <div id="popup"></div>
     <canvas id="canvas" width="300" height="300"></canvas>
     <section class="room">
       <div class="room_id_container">
         <input type="text" class="room_id_input" placeholder="Enter Room ID" />
-        <p>Generated Room ID : <span>Mpdfh*13635(#J</span></p>
+        <button id="enter_btn">Enter</button>
+        <p>Generated Room ID : <span>Refresh to generate Room Id!</span></p>
+        <p id="entered_room_text"></p>
       </div>
       <div class="chat">
         <header><h4>Chat :-</h4></header>
-        <main></main>
+        <main>
+          <div class="comment left">Hi how are you</div>
+          <div class="comment right">i am fine</div>
+        </main>
         <footer>
           <input type="text" class="chat_input" placeholder=" Try Hi!" />
+          <button id="send_btn">Send</button>
         </footer>
       </div>
     </section>
-
+    <button class="open_chat_btn">Open Chat!</button>
     <button id="btnup" class="btn" onclick="buttonup()">&#8593;</button>
     <button id="btndn" class="btn" onclick="buttondown()">&#8595;</button>
     <button id="btnr" class="btn" onclick="buttonr()">&#8594;</button>
     <button id="btnl" class="btn" onclick="buttonl()">&#8592;</button>
-    <script>
-      let gif = document.querySelector(".gif");
-      let gifs = [
-        "",
-        "./imgs/gif1-min.gif",
-        "./imgs/gif2-min.gif",
-        "./imgs/gif3-min.gif",
-      ];
-      gif.src = gifs[Math.floor(Math.random() * 3) + 1];
-    </script>
+
+    <script src="ui.js"></script>
     <script src="./snakegame.js"></script>
     <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
     <script src="./client_socket.js"></script>
