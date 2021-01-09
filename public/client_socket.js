@@ -6,6 +6,7 @@ const send_btn = document.querySelector("#send_btn");
 const chat_input = document.querySelector(".chat_input");
 let room_id = null;
 let client_id = null;
+
 socket.on("game_init", (res) => {
   client_id = res.client_id;
   room_id = res.room_id;
@@ -17,6 +18,7 @@ socket.on("game_init", (res) => {
     span.innerText = "Refresh to Generate Room Id";
   }
 });
+
 enter_btn.addEventListener("click", () => {
   let payload = {
     client_id,
@@ -24,6 +26,7 @@ enter_btn.addEventListener("click", () => {
   };
   socket.emit("enter_game_req", payload);
 });
+
 socket.on("enter_game_res", (res) => {
   console.log("enter game res :- ", res);
   room_id_input.style.display = "none";
@@ -54,7 +57,7 @@ socket.on("enter_game_res", (res) => {
 
 send_btn.addEventListener("click", () => {
   let chat = chat_input.value;
-  generate_comment(".right", chat);
+  generate_comment("right", chat);
   let payload = {
     client_id,
     room_id,
@@ -67,24 +70,27 @@ function generate_comment(cls, content) {
   let comment = document.createElement("div");
   let main = document.querySelector("main");
   comment.innerText = content;
-  comment.className.add(`.comment ${cls}`);
+  comment.classList.add("comment", `${cls}`);
   main.appendChild(comment);
+  main.scrollTop += 50;
+  chat_input.value = "";
 }
 
 socket.on("incomming_chat", (res) => {
-  // res{
-  //   client_id,
-  //   chat
-  // }
   console.log(res);
-  generate_comment(".left", res.chat);
+  generate_comment("left", res.chat);
+});
+
+socket.on("snake_pos_server", ({ x, y }) => {
+  console.log(x, y);
 });
 
 function send_snake_pos([x, y]) {
-  // let payload = {
-  //   x,
-  //   y,
-  // };
-  // socket.emit("snake_pos_client", payload);
-  return;
+  let payload = {
+    client_id,
+    room_id,
+    x,
+    y,
+  };
+  socket.emit("snake_pos_client", payload);
 }
