@@ -9,7 +9,8 @@ var randomenemyA = Math.ceil(Math.random() * 28) * 10;
 var randomenemyB = Math.ceil(Math.random() * 28) * 10;
 var score = 0;
 var counter = 500;
-let game_mode = "multi_player";
+let game_mode = "single_player";
+let player = "green";
 const eat = new Audio();
 const dead = new Audio();
 const move = new Audio();
@@ -27,46 +28,102 @@ function food() {
   ctx.strokeStyle = "black";
   ctx.strokeRect(randomfoodx, randomfoody, 10, 10);
 }
-let snakehead = [{ x: 0, y: 0 }];
-var SNAKEx = (snakehead[0].x = 200);
-var SNAKEy = (snakehead[0].y = 200);
+let green_snake = [{ x: 0, y: 0 }];
+let white_snake = [{ x: 0, y: 0 }];
+let blue_snake = [{ x: 0, y: 0 }];
+
+let green_snake_x = (green_snake[0].x = 50),
+  green_snake_y = (green_snake[0].y = 50),
+  white_snake_x = (white_snake[0].x = 100),
+  white_snake_y = (white_snake[0].y = 100),
+  blue_snake_x = (blue_snake[0].x = 200),
+  blue_snake_y = (blue_snake[0].y = 200);
+
 function drawsnake() {
-  for (let i = 0; i < snakehead.length; i++) {
+  for (let i = 0; i < green_snake.length; i++) {
     ctx.fillStyle = "lightgreen ";
-    ctx.fillRect(snakehead[i].x, snakehead[i].y, 10, 10);
+    ctx.fillRect(green_snake[i].x, green_snake[i].y, 10, 10);
 
     ctx.strokeStyle = "black ";
-    ctx.strokeRect(snakehead[i].x, snakehead[i].y, 10, 10);
+    ctx.strokeRect(green_snake[i].x, green_snake[i].y, 10, 10);
   }
+
+  for (let i = 0; i < white_snake.length; i++) {
+    ctx.fillStyle = "grey ";
+    ctx.fillRect(white_snake[i].x, white_snake[i].y, 10, 10);
+
+    ctx.strokeStyle = "black ";
+    ctx.strokeRect(white_snake[i].x, white_snake[i].y, 10, 10);
+  }
+
+  for (let i = 0; i < blue_snake.length; i++) {
+    ctx.fillStyle = "lightblue ";
+    ctx.fillRect(blue_snake[i].x, blue_snake[i].y, 10, 10);
+
+    ctx.strokeStyle = "black ";
+    ctx.strokeRect(blue_snake[i].x, blue_snake[i].y, 10, 10);
+  }
+
   ctx.fillStyle = "green";
-  ctx.fillRect(SNAKEx, SNAKEy, 10, 10);
+  ctx.fillRect(green_snake_x, green_snake_y, 10, 10);
 
   ctx.strokeStyle = "black";
-  ctx.strokeRect(SNAKEx, SNAKEy, 10, 10);
+  ctx.strokeRect(green_snake_x, green_snake_y, 10, 10);
+
+  ctx.fillStyle = "white";
+  ctx.fillRect(white_snake_x, white_snake_y, 10, 10);
+
+  ctx.strokeStyle = "black";
+  ctx.strokeRect(white_snake_x, white_snake_y, 10, 10);
+
+  ctx.fillStyle = "blue";
+  ctx.fillRect(blue_snake_x, blue_snake_y, 10, 10);
+
+  ctx.strokeStyle = "black";
+  ctx.strokeRect(blue_snake_x, blue_snake_y, 10, 10);
 }
-function enemydetect() {
+
+function current_snake_pos() {
+  if (player === "green") {
+    return { x: green_snake_x, y: green_snake_y };
+  } else if (player === "white") {
+    return { x: white_snake_x, y: white_snake_y };
+  } else if (player === "blue") {
+    return { x: blue_snake_x, y: blue_snake_y };
+  }
+}
+
+function hitdetect({ snake_x, snake_y }) {
   if (
-    (randomenemyA == SNAKEx && randomenemyB == SNAKEy) ||
-    (randomenemyB == SNAKEx && randomenemyA == SNAKEy) ||
-    (randomenemyX == SNAKEx && randomenemyY == SNAKEy) ||
-    (randomenemyY == SNAKEx && randomenemyX == SNAKEy) ||
-    (randomenemyX == SNAKEx && randomenemyA == SNAKEy) ||
-    (randomenemyA == SNAKEx && randomenemyX == SNAKEy) ||
-    (randomenemyY == SNAKEx && randomenemyA == SNAKEy) ||
-    (randomenemyA == SNAKEx && randomenemyY == SNAKEy) ||
-    (randomenemyY == SNAKEx && randomenemyB == SNAKEy) ||
-    (randomenemyX == SNAKEx && randomenemyB == SNAKEy) ||
-    (randomenemyB == SNAKEx && randomenemyY == SNAKEy) ||
-    (randomenemyA == SNAKEx && randomenemyA == SNAKEy) ||
-    (randomenemyB == SNAKEx && randomenemyB == SNAKEy) ||
-    (randomenemyX == SNAKEx && randomenemyX == SNAKEy) ||
-    (randomenemyY == SNAKEx && randomenemyY == SNAKEy)
+    (randomenemyA == snake_x && randomenemyB == snake_y) ||
+    (randomenemyB == snake_x && randomenemyA == snake_y) ||
+    (randomenemyX == snake_x && randomenemyY == snake_y) ||
+    (randomenemyY == snake_x && randomenemyX == snake_y) ||
+    (randomenemyX == snake_x && randomenemyA == snake_y) ||
+    (randomenemyA == snake_x && randomenemyX == snake_y) ||
+    (randomenemyY == snake_x && randomenemyA == snake_y) ||
+    (randomenemyA == snake_x && randomenemyY == snake_y) ||
+    (randomenemyY == snake_x && randomenemyB == snake_y) ||
+    (randomenemyX == snake_x && randomenemyB == snake_y) ||
+    (randomenemyB == snake_x && randomenemyY == snake_y) ||
+    (randomenemyA == snake_x && randomenemyA == snake_y) ||
+    (randomenemyB == snake_x && randomenemyB == snake_y) ||
+    (randomenemyX == snake_x && randomenemyX == snake_y) ||
+    (randomenemyY == snake_x && randomenemyY == snake_y)
   ) {
+    return true;
+  }
+}
+
+function enemydetect() {
+  let pos_of_current_snake = current_snake_pos();
+  if (hitdetect(pos_of_current_snake)) {
     dead.play();
     console.log("hit");
     gameover();
   }
 }
+
 function drawenemy(a, b, x, y) {
   ctx.fillStyle = "rgb(100,200,100)";
   ctx.fillRect(a, a, 10, 10);
@@ -115,8 +172,8 @@ function drawenemy(a, b, x, y) {
 }
 var newhead;
 function newtail() {
-  var a = SNAKEx;
-  var b = SNAKEy;
+  let { a, b } = { green_snake_x, green_snake_y };
+
   if (a == randomfoodx && b == randomfoody) {
     randomfoodx = Math.ceil(Math.random() * 25) * 10;
     randomfoody = Math.ceil(Math.random() * 25) * 10;
@@ -154,26 +211,27 @@ function newtail() {
     grow();
   } else {
     newhead = {
-      x: SNAKEx,
-      y: SNAKEy,
+      x: green_snake_x,
+      y: green_snake_y,
     };
-    snakehead.pop();
-    snakehead.unshift(newhead);
+    green_snake.pop();
+    green_snake.unshift(newhead);
   }
 }
+
 function grow() {
   var newhead = {
-    x: SNAKEx,
-    y: SNAKEy,
+    x: green_snake_x,
+    y: green_snake_y,
   };
-  snakehead.unshift(newhead);
+  green_snake.unshift(newhead);
 }
 function hitdetect() {
-  if (SNAKEx < 0 || SNAKEx > 299) {
+  if (green_snake_x < 0 || green_snake_x > 299) {
     dead.play();
     gameover();
   }
-  if (SNAKEy < 0 || SNAKEy > 299) {
+  if (green_snake_y < 0 || green_snake_y > 299) {
     dead.play();
     gameover();
   }
@@ -181,10 +239,13 @@ function hitdetect() {
 
 function gameover() {
   if (game_mode === "single_player") {
+    restart();
   } else if (game_mode === "multi_player") {
     if (score >= -1000) {
+      console.log(score);
       score -= 1;
     } else {
+      console.log(score);
       restart();
     }
   }
@@ -206,7 +267,7 @@ function restart() {
     popup.style.display = "none";
     counter = 500;
     score = 0;
-    snakehead = [{ x: 0, y: 0 }];
+    green_snake = [{ x: 0, y: 0 }];
     randomfoodx = Math.ceil(Math.random() * 25) * 10;
     randomfoody = Math.ceil(Math.random() * 25) * 10;
     randomenemyX = Math.ceil(Math.random() * 28) * 10;
@@ -215,39 +276,95 @@ function restart() {
     randomenemyB = Math.ceil(Math.random() * 28) * 10;
   }
 }
+
+function move_snake(player, move) {
+  if (player == "green") {
+    switch (move) {
+      case "up":
+        green_snake_y += 10;
+        break;
+      case "down":
+        green_snake_y -= 10;
+        break;
+      case "right":
+        green_snake_x += 10;
+        break;
+      case "left":
+        green_snake_x -= 10;
+    }
+  }
+
+  if (player == "red") {
+    switch (move) {
+      case "up":
+        red_snake_y += 10;
+        break;
+      case "down":
+        red_snake_y -= 10;
+        break;
+      case "right":
+        red_snake_x += 10;
+        break;
+      case "left":
+        red_snake_x -= 10;
+    }
+  }
+
+  if (player == "blue") {
+    switch (move) {
+      case "up":
+        blue_snake_y += 10;
+        break;
+      case "down":
+        blue_snake_y -= 10;
+        break;
+      case "right":
+        blue_snake_x += 10;
+        break;
+      case "left":
+        blue_snake_x -= 10;
+    }
+  }
+
+  send_snake_pos([]);
+}
 // keys
 document.addEventListener("keydown", keydown);
+
 function keydown(e) {
-  if (e.key == "w") {
-    SNAKEy += -10;
-  }
-  if (e.key == "s") {
-    SNAKEy += 10;
-  }
-  if (e.key == "a") {
-    SNAKEx += -10;
-  }
-  if (e.key == "d") {
-    SNAKEx += 10;
-  }
-  if (e.key == "d" || e.key == "w" || e.key == "a" || e.key == "s") {
-    send_snake_pos([SNAKEx, SNAKEy]);
+  switch (e.key) {
+    case "w":
+      move_snake(player, "up");
+      break;
+    case "s":
+      move_snake(player, "down");
+      break;
+    case "d":
+      move_snake(player, "right");
+      break;
+    case "a":
+      move_snake(player, "left");
+      break;
   }
 }
 // button
-function buttonup() {
-  SNAKEy += -10;
-}
-function buttondown() {
-  SNAKEy += 10;
-}
-function buttonr() {
-  SNAKEx += 10;
-}
-function buttonl() {
-  SNAKEx += -10;
-}
 
+function move_snake_btn(btn) {
+  switch (btn) {
+    case "up":
+      move_snake(player, "up");
+      break;
+    case "down":
+      move_snake(player, "down");
+      break;
+    case "right":
+      move_snake(player, "right");
+      break;
+    case "left":
+      move_snake(player, "left");
+      break;
+  }
+}
 //update start
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);

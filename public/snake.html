@@ -39,10 +39,18 @@
       </div>
     </section>
     <button class="open_chat_btn">Open Chat!</button>
-    <button id="btnup" class="btn" onclick="buttonup()">&#8593;</button>
-    <button id="btndn" class="btn" onclick="buttondown()">&#8595;</button>
-    <button id="btnr" class="btn" onclick="buttonr()">&#8594;</button>
-    <button id="btnl" class="btn" onclick="buttonl()">&#8592;</button>
+    <button id="btnup" class="btn" onclick="move_snake_btn('up')">
+      &#8593;
+    </button>
+    <button id="btndn" class="btn" onclick="move_snake_btn('down')">
+      &#8595;
+    </button>
+    <button id="btnr" class="btn" onclick="move_snake_btn('right')">
+      &#8594;
+    </button>
+    <button id="btnl" class="btn" onclick="move_snake_btn('left')">
+      &#8592;
+    </button>
 
     <script src="ui.js"></script>
     <script src="./snakegame.js"></script>

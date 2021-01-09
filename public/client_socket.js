@@ -37,27 +37,30 @@ socket.on("enter_game_res", (res) => {
 
   if (res.client === "Requestor") {
     if (res.room_id != undefined) {
+      game_mode = "multi_player";
       room_id = res.room_id;
       ui_res.innerText = `In Room ${room_id}`;
       console.log(res);
     } else if (res.err_msg != undefined) {
       ui_res.innerText = res.err_msg;
+      room_id_input.style.display = "block";
     } else {
       ui_res.innerText = "Server Error: Try Again Later";
     }
   }
 
   if (res != undefined && res.client === "Creator") {
+    game_mode = "multi_player";
     p.style.display = "block";
     res.clients.forEach((client) => {
-      if (client != res.clients[0]) ui_res.innerText += `${client} joined`;
+      ui_res.innerText += `${client} joined`;
     });
   }
 });
 
 send_btn.addEventListener("click", () => {
   let chat = chat_input.value;
-  generate_comment("right", chat);
+  generate_comment("right", chat, player);
   let payload = {
     client_id,
     room_id,
@@ -66,10 +69,11 @@ send_btn.addEventListener("click", () => {
   socket.emit("outgoing_chat", payload);
 });
 
-function generate_comment(cls, content) {
+function generate_comment(cls, content, color) {
   let comment = document.createElement("div");
   let main = document.querySelector("main");
   comment.innerText = content;
+  comment.style.color = color;
   comment.classList.add("comment", `${cls}`);
   main.appendChild(comment);
   main.scrollTop += 50;
@@ -78,7 +82,7 @@ function generate_comment(cls, content) {
 
 socket.on("incomming_chat", (res) => {
   console.log(res);
-  generate_comment("left", res.chat);
+  generate_comment("left", res.chat, res.color);
 });
 
 socket.on("snake_pos_server", ({ x, y }) => {
