@@ -93,7 +93,8 @@ function current_snake_pos() {
   }
 }
 
-function hitdetect({ snake_x, snake_y }) {
+function hitdetect(snake_x, snake_y) {
+  console.log(snake_x, snake_y);
   if (
     (randomenemyA == snake_x && randomenemyB == snake_y) ||
     (randomenemyB == snake_x && randomenemyA == snake_y) ||
@@ -116,8 +117,10 @@ function hitdetect({ snake_x, snake_y }) {
 }
 
 function enemydetect() {
-  let pos_of_current_snake = current_snake_pos();
-  if (hitdetect(pos_of_current_snake)) {
+  let x = current_snake_pos().x;
+  let y = current_snake_pos().y;
+
+  if (hitdetect(x, y)) {
     dead.play();
     console.log("hit");
     gameover();
@@ -281,10 +284,10 @@ function move_snake(player, move) {
   if (player == "green") {
     switch (move) {
       case "up":
-        green_snake_y += 10;
+        green_snake_y -= 10;
         break;
       case "down":
-        green_snake_y -= 10;
+        green_snake_y += 10;
         break;
       case "right":
         green_snake_x += 10;
@@ -294,29 +297,29 @@ function move_snake(player, move) {
     }
   }
 
-  if (player == "red") {
+  if (player == "white") {
     switch (move) {
       case "up":
-        red_snake_y += 10;
+        white_snake_y -= 10;
         break;
       case "down":
-        red_snake_y -= 10;
+        white_snake_y += 10;
         break;
       case "right":
-        red_snake_x += 10;
+        white_snake_x += 10;
         break;
       case "left":
-        red_snake_x -= 10;
+        white_snake_x -= 10;
     }
   }
 
   if (player == "blue") {
     switch (move) {
       case "up":
-        blue_snake_y += 10;
+        blue_snake_y -= 10;
         break;
       case "down":
-        blue_snake_y -= 10;
+        blue_snake_y += 10;
         break;
       case "right":
         blue_snake_x += 10;
@@ -366,7 +369,7 @@ function move_snake_btn(btn) {
   }
 }
 //update start
-function update() {
+(function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   food();
   enemydetect();
@@ -390,6 +393,4 @@ function update() {
   newtail();
   hitdetect();
   requestAnimationFrame(update);
-}
-
-update();
+})();

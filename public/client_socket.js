@@ -38,6 +38,7 @@ socket.on("enter_game_res", (res) => {
   if (res.client === "Requestor") {
     if (res.room_id != undefined) {
       game_mode = "multi_player";
+      player = res.client_color;
       room_id = res.room_id;
       ui_res.innerText = `In Room ${room_id}`;
       console.log(res);
@@ -85,8 +86,21 @@ socket.on("incomming_chat", (res) => {
   generate_comment("left", res.chat, res.color);
 });
 
-socket.on("snake_pos_server", ({ x, y }) => {
-  console.log(x, y);
+socket.on("snake_pos_server", (res) => {
+  switch (res.color) {
+    case "green":
+      green_snake_x = res.x;
+      green_snake_y = res.y;
+      break;
+    case "white":
+      white_snake_x = res.x;
+      white_snake_y = res.y;
+      break;
+    case "blue":
+      blue_snake_x = res.x;
+      blue_snake_y = res.y;
+      break;
+  }
 });
 
 function send_snake_pos([x, y]) {
