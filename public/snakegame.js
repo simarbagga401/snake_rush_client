@@ -9,6 +9,7 @@ var randomenemyA = Math.ceil(Math.random() * 28) * 10;
 var randomenemyB = Math.ceil(Math.random() * 28) * 10;
 var score = 0;
 var counter = 500;
+var gameIsOver = false;
 let game_mode = "single_player";
 let player = "green";
 const eat = new Audio();
@@ -241,6 +242,8 @@ function hitdetect() {
 }
 
 function gameover() {
+  gameIsOver = true;
+  
   if (game_mode === "single_player") {
     restart();
   } else if (game_mode === "multi_player") {
@@ -260,7 +263,7 @@ function restart() {
   gif.style.display = "inline";
   popup.innerText = `GAME OVER! Press R OR Double Click To Restart`;
   document.addEventListener("keydown", (e) => {
-    if (e.key === "r" || e.key === "R") {
+    if (e.key === "r" || e.key === "R" && gameIsOver) {
       game_restart();
     }
   });
@@ -277,6 +280,7 @@ function restart() {
     randomenemyY = Math.ceil(Math.random() * 28) * 10;
     randomenemyA = Math.ceil(Math.random() * 28) * 10;
     randomenemyB = Math.ceil(Math.random() * 28) * 10;
+    gameIsOver = false
   }
 }
 
